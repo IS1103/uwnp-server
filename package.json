@@ -1,0 +1,26 @@
+{
+  "name": "uwnp-server",
+  "version": "1.0.0",
+  "description": "輕量級連線 unity+websocket+nodejs+protobuf 框架",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IS1103/uwnp-server.git"
+  },
+  "author": "is100602@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IS1103/uwnp-server/issues"
+  },
+  "homepage": "https://github.com/IS1103/uwnp-server#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "log4js": "^6.3.0"
+  }
+}
