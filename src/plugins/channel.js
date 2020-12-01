@@ -1,3 +1,4 @@
+const PackageHandler = require('../middleware/pack/Codecs');
 class Channel {
 
   /** 資料結構
@@ -45,5 +46,16 @@ class Channel {
     return noUser;
   }
 
+  send(session, route, info, proto) {
+    try {
+      // console.log(this.usersSession);
+      // log.info(route, "push >>>>" + JSON.stringify(info));
+      let pack = PackageHandler.encodePush(route, info, proto);
+      session.send(pack, { binary: true });
+    } catch (error) {
+      // console.log("push error >>>>");
+      console.log(error);
+    }
+  }
 }
 module.exports = Channel;
