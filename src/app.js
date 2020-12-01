@@ -4,10 +4,10 @@ const app = new (require('./system/main'));
 //設定檔
 app.configure('server', { port: process.env['SERVICE_PORT'] });
 
-//插件
-// const channel = new (require('./plugins/Channel'));
+//插件./plugins/channel
+const channel = new (require('./plugins/channel'));
 const event = new (require('events').EventEmitter);
-// app.set("channel", channel);
+app.set("channel", channel);
 app.set("event", event);
 
 //安裝中間件
