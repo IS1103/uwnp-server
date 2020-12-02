@@ -5,6 +5,18 @@ class Channel {
    * {"uid1":session1,"uid2":session2,"uid3":session3,...}
    */
   usersSession = new Map();
+  event = null;
+
+  constructor(event) {
+    this.event = event;
+    this.event.on('sessionClose', this.onColesSocket.bind(this));
+  }
+
+  onColesSocket(session) {
+    if (this.usersSession.has(session.uid)) {
+      this.usersSession.delete(session.uid);
+    }
+  }
 
   /** 綁定用戶與主頻道
   * @param uid 頻道名稱

@@ -5,8 +5,8 @@ const app = new (require('./system/main'));
 app.configure('server', { port: process.env['SERVICE_PORT'] });
 
 //插件./plugins/channel
-const channel = new (require('./plugins/channel'));
 const event = new (require('events').EventEmitter);
+const channel = new (require('./plugins/channel'))(event);
 app.set("channel", channel);
 app.set("event", event);
 

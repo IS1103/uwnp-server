@@ -1,8 +1,7 @@
 const Codecs = require('./Codecs');
 const PackageType = require("./Enum").packageType;
 const ERROR_CODE = require("./ErrorCode");
-const log = require('log4js').getLogger();
-log.level = "all";
+const log = require('../../system/log');
 
 class DecodePack {
 
