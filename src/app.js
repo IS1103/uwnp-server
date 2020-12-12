@@ -1,5 +1,5 @@
 
-const app = new (require('./system/main'));
+const app = new (require('./lib/main'));
 
 //設定檔
 app.configure('server', { port: process.env['SERVICE_PORT'] });

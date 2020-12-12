@@ -23,7 +23,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "koa-compose": "^4.1.0",
-    "log4js": "^6.3.0",
+    "log4js": "^0.6.21",
     "protobufjs": "^6.10.2",
     "ws": "^7.4.0"
   }

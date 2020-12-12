@@ -1,8 +1,8 @@
 const Codecs = require("./Codecs");
 const PackageType = require("./Enum").packageType;
 const ERROR_CODE = require("../../../config/errorCode/sys");
-const ErrorBase = require("../../system/baseClass/ErrorBase");
-const log = require('../../system/log');
+const ErrorBase = require("../../lib/baseClass/ErrorBase");
+const log = require('../../lib/log');
 
 class EncodePack {
 

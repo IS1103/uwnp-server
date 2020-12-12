@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const Error = require('../system/baseClass/ErrorBase');
+const Error = require('../lib/baseClass/ErrorBase');
 const ERROR_CODE = require('../../config/errorCode/sys');
 
 class Auther {

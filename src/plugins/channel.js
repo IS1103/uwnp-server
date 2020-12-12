@@ -1,4 +1,5 @@
 const PackageHandler = require('../middleware/pack/Codecs');
+const log = require('../lib/log');
 class Channel {
 
   /** 資料結構
@@ -14,6 +15,7 @@ class Channel {
 
   onColesSocket(session) {
     if (this.usersSession.has(session.uid)) {
+
       this.usersSession.delete(session.uid);
     }
   }

@@ -1,11 +1,11 @@
 const Codecs = require('./Codecs');
 const PackageType = require("./Enum").packageType;
 const ERROR_CODE = require("./ErrorCode");
-const log = require('../../system/log');
+const log = require('../../lib/log');
 
 class DecodePack {
 
-    /** 把 byte[] 轉成包結構
+    /** 把 byte[] 轉成物件
      * @param {Session} context.session
      * @param {byte[]} context.request
     */

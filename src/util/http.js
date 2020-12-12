@@ -1,6 +1,6 @@
 const Https = require('https');
 const Http = require('http');
-const log = require('../system/log');
+const log = require('../lib/log');
 
 class Httper {
   static delay(millisec) {
