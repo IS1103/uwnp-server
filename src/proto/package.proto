@@ -1,0 +1,15 @@
+package package;
+syntax = "proto3";
+
+message Package {
+    uint32 packageType = 1;
+    string route = 2;
+    int32 rqID = 3;
+    bytes buff = 4;
+}
+
+message Message {
+    int32 err = 1;
+    string errMsg = 2;
+    bytes info = 3;
+}

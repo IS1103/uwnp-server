@@ -1,0 +1,10 @@
+package SystemController;
+syntax = "proto3";
+
+message handShake_C {
+  string token = 1;
+}
+
+message handShake_S {
+  uint32 heartbeat = 1;
+}

@@ -1,0 +1,18 @@
+package TestController;
+syntax = "proto3";
+
+message testA_C {
+  uint32 packageType = 1;
+}
+
+message testA_S {
+  uint32 packageType = 1;
+}
+
+message testB_C {
+  string name = 1;
+}
+
+message testOn_P {
+  string info = 1;
+}
