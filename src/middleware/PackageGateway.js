@@ -49,7 +49,7 @@ class PackageGateway {
    * @param {object} context.request.json 請求的資料
    * @param {Onject} context.result 請求回傳資料
    */
-  async next(context, next) {
+  next(context, next) {
     let req = context.request;
     let session = context.session;
 
@@ -64,11 +64,21 @@ class PackageGateway {
           break;
         case PackageType.REQUEST:
           log.debug("<<<< Request " + JSON.stringify(req));
-          response = await this.controllers[controller][method](session, info);
-          break;
+          let tryCatchObj = this.controllers[controller][method](session, info, { context, next });
+          if (tryCatchObj) {
+            tryCatchObj.catch(error => {
+              this.returnThrow(error, PackageType, req, session);
+            });
+          }
+          return;
         case PackageType.NOTIFY:
           log.debug("<<<< Notify " + JSON.stringify(req));
-          await this.controllers[controller][method](session, info);
+          let tryCatchObj2 = this.controllers[controller][method](session, info, { context, next });
+          if (tryCatchObj2) {
+            tryCatchObj2.catch(error => {
+              this.returnThrow(error, PackageType, req, session);
+            });
+          }
           return;
         case PackageType.HANDSHAKE:
           response = this.controllers.SystemController.handshake(session, info);
@@ -81,31 +91,36 @@ class PackageGateway {
       next();
       // throw new ErrorBase(3340);
     } catch (error) {
-      log.error("PackageGateway error:", error);
-      let errPack = null;
-      let res = {
-        'err': ERROR_CODE.UNEXPECTED,
-        'errMsg': error.message,
-        'info': null
-      }
-      if (error instanceof ErrorBase) res.err = error.code;
-      let encodeInfo = {
-        packageType: PackageType.RESPONSE,
-        controller: req.controller,
-        method: req.method,
-        route: req.route,
-        rqID: req.rqID,
-        info: res
-      }
-      if (req.packageType == PackageType.REQUEST) {
-        encodeInfo.packageType = PackageType.RESPONSE;
-      } else {
-        encodeInfo.packageType = PackageType.ERROR;
-      }
-      errPack = Codecs.encode(encodeInfo, res);
-      // console.log(">>>> controller error： " + JSON.stringify(encodeInfo));
-      session.send(errPack, { binary: true });
+      this.returnThrow(error, PackageType, req, session);
     }
+  }
+
+  returnThrow(_error, _PackageType, _req, _session) {
+    let error = _error, PackageType = _PackageType, req = _req, session = _session;
+    log.error("PackageGateway error:", error.message, error.stack);
+    let errPack = null;
+    let res = {
+      'err': ERROR_CODE.UNEXPECTED,
+      'errMsg': error.message,
+      'info': null
+    }
+    if (error instanceof ErrorBase) res.err = error.code;
+    let encodeInfo = {
+      packageType: PackageType.RESPONSE,
+      controller: req.controller,
+      method: req.method,
+      route: req.route,
+      rqID: req.rqID,
+      info: res
+    }
+    if (req.packageType == PackageType.REQUEST) {
+      encodeInfo.packageType = PackageType.RESPONSE;
+    } else {
+      encodeInfo.packageType = PackageType.ERROR;
+    }
+    errPack = Codecs.encode(encodeInfo, res);
+    // console.log(">>>> controller error： " + JSON.stringify(encodeInfo));
+    session.send(errPack, { binary: true });
   }
 }
 module.exports = PackageGateway;

@@ -27,7 +27,10 @@ class Main {
   }
 
   setup() {
-
+    // process.on('unhandledRejection', error => {
+    //   console.error('unhandledRejection', error);
+    //   // process.exit(1) // To exit with a 'failure' code
+    // });
   }
 
   start() {

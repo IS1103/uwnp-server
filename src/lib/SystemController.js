@@ -19,7 +19,7 @@ class SystemController extends ControllerBase {
     let waitT = process.env['HARBEAT'] - 2000;
     let val = process.env['HARBEAT'] / 1000;
     while (true) {
-      log.debug("檢查心跳", this.heartbeatArr.size);
+      // log.debug("檢查心跳", this.heartbeatArr.size);
       let offlineTimesemp = GameUtil.getTimestamp();
 
       for (const [uid, { timestemp, session }] of this.heartbeatArr) {
@@ -66,6 +66,21 @@ class SystemController extends ControllerBase {
     let obj = this.heartbeatArr.get(uid);
     obj.timestemp = GameUtil.getTimestamp();
     return this.response();
+  }
+
+  /**
+   * 
+   * @param {*} info 回傳的物件
+   * @param {*} msg 訊息
+   * @param {*} proto 可選，指定 proto 格式，預設為【方法名稱_S】
+   */
+  response(info = null, msg = null, proto = null) {
+    return {
+      'err': 0,
+      'errMsg': msg,
+      'info': info == null ? null : info,
+      'proto': proto
+    }
   }
 }
 module.exports = SystemController;
