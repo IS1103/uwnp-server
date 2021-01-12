@@ -78,7 +78,7 @@ class PackageGateway {
           break;
       }
       context.response = response;
-      await next();
+      next();
       // throw new ErrorBase(3340);
     } catch (error) {
       log.error("PackageGateway error:", error);

@@ -19,7 +19,7 @@ class SystemController extends ControllerBase {
     let waitT = process.env['HARBEAT'] - 2000;
     let val = process.env['HARBEAT'] / 1000;
     while (true) {
-      // log.debug("檢查心跳", this.heartbeatArr.size);
+      log.debug("檢查心跳", this.heartbeatArr.size);
       let offlineTimesemp = GameUtil.getTimestamp();
 
       for (const [uid, { timestemp, session }] of this.heartbeatArr) {

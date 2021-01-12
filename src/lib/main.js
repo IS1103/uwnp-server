@@ -3,6 +3,7 @@ const compose = require('koa-compose');
 const httpServ = require('https');
 const WebSocket = require('ws');
 const log = require('./log');
+
 process.global = {};
 
 class Main {
@@ -25,7 +26,12 @@ class Main {
     this.config[key] = config;
   }
 
+  setup() {
+
+  }
+
   start() {
+    this.setup();
     this.startRPC();
     this.startWebserver();
   }

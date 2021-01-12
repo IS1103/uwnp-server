@@ -7,7 +7,8 @@ const ERROR_CODE = require('../middleware/pack/ErrorCode');
 
 class TestController extends ControllerBase {
 
-  testA(session, packObj) {
+  async testA(session, packObj) {
+    await GameUtil.delay(5000).promise;
     return this.response({ packageType: 123 });
     //return this.response({ packageType: 123 }, null, 'testA_S');
     // throw new Error(3, "錯誤訊息");

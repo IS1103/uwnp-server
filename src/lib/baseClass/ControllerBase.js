@@ -8,12 +8,7 @@ class ControllerBase {
     this.event = app.plugins.event;
   }
 
-  setupPlugins() {
-
-  }
-
   /**
-   * 
    * @param {*} info 回傳的物件
    * @param {*} msg 訊息
    * @param {*} proto 可選，指定 proto 格式，預設為【方法名稱_S】
