@@ -16,17 +16,13 @@ class ControllerBase {
    * @param {*} proto 可選，指定 proto 格式，預設為【方法名稱_S】
    */
   response(obj, info = null, msg = null, proto = null) {
-    if (!info && !msg && !proto) {
-      obj.next();
-    } else {
-      obj.context.response = {
-        'err': 0,
-        'errMsg': msg,
-        'info': info == null ? null : info,
-        'proto': proto
-      };
-      obj.next();
-    }
+    obj.context.response = {
+      'err': 0,
+      'errMsg': msg,
+      'info': info == null ? null : info,
+      'proto': proto
+    };
+    obj.next();
   }
 
   responseError(err) {

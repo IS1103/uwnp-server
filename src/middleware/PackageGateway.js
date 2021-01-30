@@ -65,7 +65,7 @@ class PackageGateway {
         case PackageType.REQUEST:
           log.debug("<<<< Request " + JSON.stringify(req));
           let tryCatchObj = this.controllers[controller][method](session, info, { context, next });
-          if (tryCatchObj) {
+          if (tryCatchObj instanceof Promise) {
             tryCatchObj.catch(error => {
               this.returnThrow(error, PackageType, req, session);
             });
@@ -73,8 +73,8 @@ class PackageGateway {
           return;
         case PackageType.NOTIFY:
           log.debug("<<<< Notify " + JSON.stringify(req));
-          let tryCatchObj2 = this.controllers[controller][method](session, info, { context, next });
-          if (tryCatchObj2) {
+          let tryCatchObj2 = this.controllers[controller][method](session, info);
+          if (tryCatchObj2 instanceof Promise) {
             tryCatchObj2.catch(error => {
               this.returnThrow(error, PackageType, req, session);
             });

@@ -61,7 +61,9 @@ class Main {
         verifyClient: this.verifyClient
       });
 
-      this.wss.on('connection', (session) => {
+      this.wss.on('connection', (session, req) => {
+        ;
+        console.log(session._socket.address());
         session.on('message', (data) => {
           this.runCompose({ request: data, session });
         });

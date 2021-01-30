@@ -16,15 +16,15 @@ class SystemController extends ControllerBase {
   }
 
   async startCheckHeartbeat() {
-    let waitT = process.env['HARBEAT'] - 2000;
+    let waitT = process.env['HARBEAT'];
     let val = process.env['HARBEAT'] / 1000;
     while (true) {
-      // log.debug("檢查心跳", this.heartbeatArr.size);
+      console.debug("檢查心跳", this.heartbeatArr.size);
       let offlineTimesemp = GameUtil.getTimestamp();
 
       for (const [uid, { timestemp, session }] of this.heartbeatArr) {
         if ((offlineTimesemp - timestemp) > val) {
-          log.debug("這傢伙離線了", uid);
+          console.debug("這傢伙離線了", uid);
           this.channel.unbind(session);
           session.close(1000, "NO_HEARTBEAT");
           this.heartbeatArr.delete(uid);
@@ -39,10 +39,14 @@ class SystemController extends ControllerBase {
 
   handshake(session, packObj) {
     try {
-      // log.info(packObj);
+      // console.info(packObj);
       let obj = this.decryptToken(packObj.token);
       let uid = parseInt(obj.uid);
       session.uid = uid;
+      if (this.heartbeatArr.has(uid)) {
+        console.debug("這傢伙重新連線");
+        this.heartbeatArr.get(uid).session.close(1000, "NO_HEARTBEAT");
+      }
       this.heartbeatArr.set(uid, { 'timestemp': GameUtil.getTimestamp(), session });
       this.channel.bind(uid, session);
       return this.response(
@@ -62,7 +66,7 @@ class SystemController extends ControllerBase {
 
   heartbeat(session, packObj) {
     let uid = parseInt(session.uid);
-    // log.debug(uid, "持續心跳");
+    console.debug(uid, "收到心跳");
     let obj = this.heartbeatArr.get(uid);
     obj.timestemp = GameUtil.getTimestamp();
     return this.response();
