@@ -10,6 +10,7 @@ const ROORO_CODE = {
     OUT_OF_RANGE: 8,
     SKIP: 9,
     REPEAT_ACTION: 10,
+    NO_SETUP_METHOD:11,
 
     NO_OPEN: 1000,
     NO_MONEY: 1001,

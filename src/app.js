@@ -1,5 +1,6 @@
 
 const app = new (require('./lib/main'));
+app.setup();
 
 //設定檔
 app.configure('server', { port: process.env['SERVICE_PORT'] });

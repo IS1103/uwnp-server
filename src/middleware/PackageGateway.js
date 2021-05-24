@@ -1,7 +1,6 @@
 const Codecs = require("./pack/Codecs");
 const PackageType = require("./pack/Enum").packageType;
-const ERROR_CODE = require("./pack/ErrorCode");
-const ErrorBase = require("../lib/baseClass/ErrorBase");
+const Error = require("../lib/baseClass/ErrorBase");
 const fs = require('fs');
 const path = require('path');
 const ctrlDirPath = __dirname + "/../controllers/";
@@ -100,11 +99,11 @@ class PackageGateway {
     log.error("PackageGateway error:", error.message, error.stack);
     let errPack = null;
     let res = {
-      'err': ERROR_CODE.UNEXPECTED,
+      'err': Error.CODE.UNEXPECTED,
       'errMsg': error.message,
       'info': null
     }
-    if (error instanceof ErrorBase) res.err = error.code;
+    if (error instanceof Error) res.err = error.code;
     let encodeInfo = {
       packageType: PackageType.RESPONSE,
       controller: req.controller,

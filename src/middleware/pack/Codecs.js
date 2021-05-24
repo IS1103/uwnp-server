@@ -4,7 +4,7 @@ const protobuf = require("protobufjs");
 const fs = require('fs');
 const path = require('path');
 const PackageType = require("./Enum").packageType;
-const ERROR_CODE = require("./ErrorCode");
+const Error = require('../../lib/baseClass/ErrorBase');
 const log = require('../../lib/log');
 
 class PackageHandler {
@@ -112,7 +112,7 @@ class PackageHandler {
       }
     } catch (error) {
       log.error(error);
-      throw new Error(ERROR_CODE.PACKAG_ENCODE, error.message);
+      throw new Error(Error.CODE.PACKAG_ENCODE, error.message);
     }
   }
 

@@ -5,6 +5,9 @@ const WebSocket = require('ws');
 const log = require('./log');
 
 process.global = {};
+const appDir = require('path').dirname(require.main.filename);
+process.global.errorClassPath = appDir+'/lib/baseClass/ErrorBase';
+const Error = require(process.global.errorClassPath);
 
 class Main {
   config = {};
@@ -12,6 +15,7 @@ class Main {
   middleware = [];
   runCompose = null;
   wss = null;
+  isSetup = false;
 
   constructor() {
     this.runCompose = compose(this.middleware);
@@ -27,6 +31,8 @@ class Main {
   }
 
   setup() {
+    this.isSetup = true;
+    
     // process.on('unhandledRejection', error => {
     //   console.error('unhandledRejection', error);
     //   // process.exit(1) // To exit with a 'failure' code
@@ -34,13 +40,15 @@ class Main {
   }
 
   start() {
-    this.setup();
+    if (!this.isSetup) {
+      throw new Error(Error.CODE.NO_SETUP_METHOD,'pleace call setup() method first！');
+    }
     this.startRPC();
     this.startWebserver();
   }
 
   startRPC() {
-
+  
   }
 
   //socket 握手驗證版本

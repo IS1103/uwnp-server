@@ -1,6 +1,5 @@
 const crypto = require('crypto');
 const Error = require('../lib/baseClass/ErrorBase');
-const ERROR_CODE = require('../../config/errorCode/sys');
 
 class Auther {
   static encrypt(src, key, iv) {
@@ -11,7 +10,7 @@ class Auther {
       sign += cipher.final('hex');
       return sign;
     } catch (error) {
-      throw new Error(ERROR_CODE.FAILED_ENCRYPT, "無法加密");
+      throw new Error(Error.CODE.FAILED_ENCRYPT, "無法加密");
     }
   }
 
@@ -23,7 +22,7 @@ class Auther {
       src += cipher.final('utf8');
       return src;
     } catch (error) {
-      throw new Error(ERROR_CODE.FAILED_VERIFICATION, "無法解密");
+      throw new Error(Error.CODE.FAILED_VERIFICATION, "無法解密");
     }
   }
 }
