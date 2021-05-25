@@ -23,7 +23,7 @@
 const ControllerBase = require('../lib/baseClass/ControllerBase');
 class ClassNameController extends ControllerBase{
   testA(session, packObj){
-    return this.response({ packageType: 123 });
+    this.response({ packageType: 123 });
   }
 }
 ```
