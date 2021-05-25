@@ -15,14 +15,13 @@ class Channel {
 
   onColesSocket(session) {
     if (this.usersSession.has(session.uid)) {
-
       this.usersSession.delete(session.uid);
     }
   }
 
   /** 綁定用戶與主頻道
-  * @param uid 頻道名稱
-  * @param session 可用來傳送檔案
+  * @param uid 用戶名稱
+  * @param session 可用來傳送資料
   * @returns {boolean} 回傳綁定是否成功
   */
   bind(uid, session) {
@@ -31,8 +30,8 @@ class Channel {
   }
 
   /** 解除綁定用戶與頻道
-  * @param uid 頻道名稱
-  * @param session 可用來傳送檔案
+  * @param uid 用戶名稱
+  * @param session 可用來傳送資料
   * @returns {boolean} 回傳移除綁定是否成功
   */
   unbind(uid) {
@@ -41,7 +40,7 @@ class Channel {
   }
 
   /** 推送訊息給指定的用戶
-  * @param channelName 頻道名稱
+  * @param uids 用戶群
   * @param route 完整路由
   * @param info 訊息
   * @param proto proto 格式

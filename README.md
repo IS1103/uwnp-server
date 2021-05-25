@@ -16,9 +16,9 @@
 ```shell
 >sudo npm test
 ```
-## 新增API步驟
+## 新增API步驟（沒有controller）
 ### 增加 testA Request
-1. 在 src/controller/ 增加 ClassNameController.js 如下：
+1. 在 src/controller/ 增加 ClassNameController.js（Controller 必寫）如下：
 ```javascript
 const ControllerBase = require('../lib/baseClass/ControllerBase');
 class ClassNameController extends ControllerBase{
@@ -38,7 +38,14 @@ message testA_C {// _C 代表從 client 傳過來的資料結構，必寫
 message testA_S {// _S 代表從 server 回傳到 client，必寫
   uint32 packageType = 1;
 }
+
+message testA_P {// _P 代表從 server 推播到 client，必寫
+  uint32 packageType = 1;
+}
 ```
+## 新增API步驟（已經有 *controller.js 或已有 *.proto）
+1. 在任何喜歡的 XXXController 裡面新增 API
+2. 在 XXXController.proto 新增 _C、_S 的 message 即可
 ## 回傳錯誤
 當有任何錯誤需要回傳的時候，必須要用 **ErrorBase.js** 這個檔案，路徑在 \src\lib\baseClass\ErrorBase.js 。也可以用 process.global.errorClassPath 
 ```javascript

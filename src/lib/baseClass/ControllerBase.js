@@ -11,9 +11,9 @@ class ControllerBase {
   }
 
   /**
-   * @param {*} info 回傳的物件
-   * @param {*} msg 訊息
-   * @param {*} proto 可選，指定 proto 格式，預設為【方法名稱_S】
+   * @param {*} info response
+   * @param {*} msg option,message
+   * @param {*} proto option，proto format default [methodName_S]
    */
   response(obj, info = null, msg = null, proto = null) {
     obj.context.response = {

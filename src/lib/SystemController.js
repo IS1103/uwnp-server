@@ -74,8 +74,8 @@ class SystemController extends ControllerBase {
   /**
    * 
    * @param {*} info response
-   * @param {*} msg
-   * @param {*} proto option，proto format default [methodName_S]
+   * @param {*} msg option
+   * @param {*} proto option,proto format default [methodName_S]
    */
   response(info = null, msg = null, proto = null) {
     return {
