@@ -1,9 +1,12 @@
 # 說明
 
+### UWNP 由來
+UWNP 全名是 unity+websocket+nodejs+protobuf 輕量級連線框架，
+
 ## 環境設定
-所有自定義的 config 檔案皆在 configThemes，創建一個資料夾，該檔名就是<環境名稱>，若沒輸入就是取得 default 資料夾，完成就會秀出<環境名稱> setup!
+所有自定義的 config 檔案皆在 configThemes。自定義遊戲設定的方法如下：創建一個資料夾，該檔名就是<環境名稱>，若沒輸入就是取得 default 資料夾，完成就會秀出<環境名稱> setup!
 ```shell
->bash shell.sh
+>bash shell/shell.sh
 >input use env name:<環境名稱>
 ><環境名稱> setup!
 ```
