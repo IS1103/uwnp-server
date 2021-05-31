@@ -14,7 +14,7 @@
 ```
 ## 啟動修改自動重啟 game server
 ```shell
->sudo npm test
+>sudo npm run dev
 ```
 ## 新增API步驟（沒有controller）
 ### 增加 testA Request
