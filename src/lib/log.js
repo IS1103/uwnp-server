@@ -1,11 +1,26 @@
 const log4js = require('log4js');
 log4js.configure({
-  appenders: [{
-    "type": "console"
-  }],
+  appenders: [
+    {
+      type: "console",
+      category: "console"
+    },
+    {
+      type: 'logLevelFilter',
+      appender: {
+        type: 'file',
+        filename: 'logs/server.log',
+        maxLogSize : 20480,// bytes
+        backups:3//log file limit
+      },
+      category: 'console',
+      level: 'ERROR'//show trace,error,
+    },
+  ],
   "replaceConsole": true,
 });
-const logger = log4js.getLogger();
+
+var logger = log4js.getLogger('console');
 
 // console.trace("Entering cheese testing");
 // console.debug("Got cheese.");

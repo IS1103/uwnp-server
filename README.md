@@ -1,22 +1,33 @@
 # 說明
 
-### UWNP 由來
+- [UWNP由來](#UWNP由來)
+- [環境設定](#環境設定)
+- [啟動 game server](#啟動gameserver)
+- [啟動修改自動重啟 game server](#啟動修改自動重啟gameserver)
+- [連線握手規則Handshake](#連線握手規則Handshake)
+- [新增API步驟](#新增API步驟)
+- [回傳錯誤](#回傳錯誤)
+- [Logger 設定](#Logger設定)
+## UWNP由來
 UWNP 全名是 unity+websocket+nodejs+protobuf 輕量級連線框架，目的是讓開發者只專注在開發商業邏輯 API 。
 ## 環境設定
 所有自定義的 config 檔案皆在 configThemes。自定義遊戲設定的方法如下：創建一個資料夾，該檔名就是<環境名稱>，若沒輸入就是取得 default 資料夾，完成就會秀出<環境名稱> setup!
 ```shell
->bash shell/shell.sh
+>npm run env
 >input use env name:<環境名稱>
 ><環境名稱> setup!
 ```
-## 啟動 game server
+## 啟動gameserver
 ```shell
 >sudo npm start
 ```
-## 啟動修改自動重啟 game server
+## 啟動修改自動重啟gameserver
 ```shell
 >sudo npm run dev
 ```
+## 連線握手規則Handshake
+
+
 ## 新增API步驟
 ### 增加 testA Request
 1. 在 src/controller/ 增加 TestController.js（Controller 必寫）如下：
@@ -51,3 +62,5 @@ message testA_P {// _P 代表從 server 推播到 client 的資料結構，必�
 const Error = require(process.global.errorClassPath);
 throw new Error(Error.CODE.UNEXPECTED, "錯誤訊息");
 ```
+## Logger設定
+src/lib/log.js 這裡面設定

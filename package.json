@@ -4,9 +4,9 @@
   "description": "輕量級連線 unity+websocket+nodejs+protobuf 框架",
   "main": "index.js",
   "scripts": {
-    "serail":"bash shell/shell.sh",
+    "env": "bash shell/shell.sh",
     "dev": "nodemon src/app.js",
-    "start": "node src/app.js"    
+    "start": "node src/app.js"
   },
   "repository": {
     "type": "git",

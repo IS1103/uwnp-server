@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const ctrlDirPath = __dirname + "/../controllers/";
 const SystemController = require('../lib/SystemController');
-const log = require('../lib/log');
 
 class PackageGateway {
 
@@ -62,7 +61,7 @@ class PackageGateway {
           response = this.controllers.SystemController.heartbeat(session, info);
           break;
         case PackageType.REQUEST:
-          log.debug("<<<< Request " + JSON.stringify(req));
+          console.debug("<<<< Request " + JSON.stringify(req));
           let tryCatchObj = this.controllers[controller][method](session, info, { context, next });
           if (tryCatchObj instanceof Promise) {
             tryCatchObj.catch(error => {
@@ -71,7 +70,7 @@ class PackageGateway {
           }
           return;
         case PackageType.NOTIFY:
-          log.debug("<<<< Notify " + JSON.stringify(req));
+          console.debug("<<<< Notify " + JSON.stringify(req));
           let tryCatchObj2 = this.controllers[controller][method](session, info);
           if (tryCatchObj2 instanceof Promise) {
             tryCatchObj2.catch(error => {
@@ -83,7 +82,7 @@ class PackageGateway {
           response = this.controllers.SystemController.handshake(session, info);
           break;
         default:
-          log.debug("沒有符合的 packageType：", req.packageType);
+          console.debug("No match packageType:", req.packageType);
           break;
       }
       context.response = response;
@@ -96,7 +95,7 @@ class PackageGateway {
 
   returnThrow(_error, _PackageType, _req, _session) {
     let error = _error, PackageType = _PackageType, req = _req, session = _session;
-    log.error("PackageGateway error:", error.message, error.stack);
+    console.error("PackageGateway error:", error.message, error.stack);
     let errPack = null;
     let res = {
       'err': Error.CODE.UNEXPECTED,
