@@ -37,7 +37,7 @@ class SystemController extends ControllerBase {
 
   handshake(session, packObj) {
     try {
-      let uid = ConfirmEntryRule.check(packObj.token);
+      let uid = ConfirmEntryRule.check(packObj);
       session.uid = uid;
       if (this.heartbeatArr.has(uid)) {
         // console.debug("this guy reonline");

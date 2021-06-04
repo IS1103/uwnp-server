@@ -1,7 +1,7 @@
 const Auther = require('../util/auther');
 class ConfirmEntryRule {
-    static check(token) {
-        let obj = ConfirmEntryRule.decryptToken(token);
+    static check(packObj) {
+        let obj = ConfirmEntryRule.decryptToken(packObj.token);
         return parseInt(obj.uid);
     }
 

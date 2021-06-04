@@ -3,7 +3,7 @@
 # 說明
 
 - [UWNP由來](#UWNP由來)
-- [特色](#特色)
+- [功能](#功能)
 - [環境設定](#環境設定)
 - [啟動 game server](#啟動gameserver)
 - [啟動修改自動重啟 game server](#啟動修改自動重啟gameserver)
@@ -14,12 +14,17 @@
 - [取得用戶上下線的方法](#取得用戶上下線的方法)
 # UWNP由來
 UWNP 全名是 unity+websocket+nodejs+protobuf 輕量級單線程連線框架，目的是讓開發者只專注在開發商業邏輯 API 。
-# 特色
+# 功能
 * nodejs ES6 風格。
 * 可快速指定環境設定。
-* 幾乎零配置，撰寫容易。
-* 使用 Http RPC
+* 幾乎零配置，撰寫 API 容易。
+* 使用 Http 框架的 RPC
 * 監聽用戶上下線
+* 客戶端、服務端有四種溝通方法
+  * request 客戶端發出請求
+  * response 服務端回復請求
+  * notify 客戶端通知，服務端不必回復
+  * push 服務端主動發送訊息給客戶端
 # 環境設定
 所有自定義的 config 檔案皆在 configThemes。自定義遊戲設定的方法如下：創建一個資料夾，該檔名就是<環境名稱>，若沒輸入就是取得 default 資料夾，完成就會秀出<環境名稱> setup!
 ```shell
@@ -44,13 +49,20 @@ src/lib/handshakeRule.js 這裡面設定
 ```javascript
 const ControllerBase = require('../lib/baseClass/ControllerBase');
 class TestController extends ControllerBase{
-  testA(session, packObj){
+
+  /**request/response API
+   * 
+   * @param {*} session {uid}
+   * @param {*} packObj {request info}
+   * @param {*} next 
+   */
+  testA(session, packObj, next){
     this.response({ packageType: 123 });
   }
 }
 ```
 2. 在 src/proto/ 增加 TestController.proto（TestController 要跟 TestController.js同名） 如下：
-```proto
+```javascript
 package TestController;
 syntax = "proto3";
 message testA_C {// _C 代表從 client 傳過來的資料結構，必寫
@@ -74,3 +86,18 @@ throw new Error(Error.CODE.UNEXPECTED, "錯誤訊息");
 # Logger設定
 src/lib/log.js 這裡面設定
 # 取得用戶上下線的方法
+```javascript
+class TestController extends ControllerBase{
+  constructor(app) {
+    super(app);
+    this.event.on('offline', this.onOffline.bind(this));
+  }
+  onOffline(uid){
+    console.log(uid,"offline~");
+  }
+
+  entry(session, packObj, next){
+    //user entry
+  }
+}
+```
