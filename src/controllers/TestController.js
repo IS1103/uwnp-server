@@ -8,7 +8,7 @@ class TestController extends ControllerBase {
   }
 
   onOffline(uid){
-    // console.log(uid,"offline ~");
+    console.log(uid,"offline ~");
   }
 
   /**request/response API
