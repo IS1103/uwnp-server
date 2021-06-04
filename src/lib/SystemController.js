@@ -28,6 +28,7 @@ class SystemController extends ControllerBase {
           this.heartbeatArr.delete(uid);
           this.event.emit('offline', uid);
         } else {
+          // console.debug("this guy online", uid);
           this.event.emit('online', uid);
         }
       }
@@ -41,7 +42,7 @@ class SystemController extends ControllerBase {
       session.uid = uid;
       if (this.heartbeatArr.has(uid)) {
         // console.debug("this guy reonline");
-        this.heartbeatArr.get(uid).session.close(1000, "NO_HEARTBEAT");
+        this.heartbeatArr.get(uid).session.terminate();
       }
       this.heartbeatArr.set(uid, { 'timestemp': GameUtil.getTimestamp(), session });
       this.channel.bind(uid, session);
@@ -53,9 +54,8 @@ class SystemController extends ControllerBase {
   }
 
   heartbeat(session, packObj) {
-    let uid = parseInt(session.uid);
     // console.debug(uid, "get heartbeat");
-    let obj = this.heartbeatArr.get(uid);
+    let obj = this.heartbeatArr.get(session.uid);
     obj.timestemp = GameUtil.getTimestamp();
     return this.response();
   }

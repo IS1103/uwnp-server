@@ -8,7 +8,7 @@ class TestController extends ControllerBase {
   }
 
   onOffline(uid){
-    console.log(uid,"offline ~");
+    // console.log(uid,"offline ~");
   }
 
   /**request/response API
@@ -22,7 +22,7 @@ class TestController extends ControllerBase {
     this.response(next, { packageType: 123 });
 
     // 回傳錯誤不要用 responseError() ，而是用下列方式
-    // throw new Error(Error.CODE.UNEXPECTED, "錯誤訊息");
+    // throw new Error(Error.CODE.UNEXPECTED, "testA 錯誤訊息");
   }
 
   /**notify API */

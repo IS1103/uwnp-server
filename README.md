@@ -1,9 +1,8 @@
 [![License](https://img.shields.io/github/license/wsmd/ws-multipath.svg)](https://github.com/wsmd/ws-multipath/blob/master/LICENSE)
 
 # 說明
-
 - [UWNP由來](#UWNP由來)
-- [功能](#功能)
+- [服務端功能](#服務端功能)
 - [環境設定](#環境設定)
 - [啟動 game server](#啟動gameserver)
 - [啟動修改自動重啟 game server](#啟動修改自動重啟gameserver)
@@ -14,7 +13,7 @@
 - [取得用戶上下線的方法](#取得用戶上下線的方法)
 # UWNP由來
 UWNP 全名是 unity+websocket+nodejs+protobuf 輕量級單線程連線框架，目的是讓開發者只專注在開發商業邏輯 API 。
-# 功能
+# 服務端功能
 * nodejs ES6 風格。
 * 可快速指定環境設定。
 * 幾乎零配置，撰寫 API 容易。
@@ -97,7 +96,7 @@ class TestController extends ControllerBase{
   }
 
   entry(session, packObj, next){
-    //user entry
+    //user entry,online
   }
 }
 ```
