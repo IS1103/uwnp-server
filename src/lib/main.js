@@ -6,7 +6,7 @@ const log = require('./log');
 
 process.global = {};
 const appDir = require('path').dirname(require.main.filename);
-process.global.errorClassPath = appDir+'/lib/baseClass/ErrorBase';
+process.global.errorClassPath = appDir + '/lib/baseClass/ErrorBase';
 const Error = require(process.global.errorClassPath);
 
 class Main {
@@ -32,7 +32,7 @@ class Main {
 
   setup() {
     this.isSetup = true;
-    
+
     // process.on('unhandledRejection', error => {
     //   console.error('unhandledRejection', error);
     //   // process.exit(1) // To exit with a 'failure' code
@@ -41,14 +41,14 @@ class Main {
 
   start() {
     if (!this.isSetup) {
-      throw new Error(Error.CODE.NO_SETUP_METHOD,'pleace call setup() method first！');
+      throw new Error(Error.CODE.NO_SETUP_METHOD, 'pleace call setup() method first！');
     }
     this.startRPC();
     this.startWebserver();
   }
 
   startRPC() {
-  
+
   }
 
   //socket 握手驗證版本
@@ -70,7 +70,6 @@ class Main {
       });
 
       this.wss.on('connection', (session, req) => {
-        ;
         console.log(session._socket.address());
         session.on('message', (data) => {
           this.runCompose({ request: data, session });

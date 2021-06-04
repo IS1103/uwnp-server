@@ -1,16 +1,17 @@
 const ControllerBase = require('../lib/baseClass/ControllerBase');
 const log = require('./log');
 const GameUtil = require('../util/game');
-const Auther = require('../util/auther');
+const ConfirmEntryRule = require('./confirmEntryRule');
 
 class SystemController extends ControllerBase {
 
   /** Check response at the specified time  */
   heartbeatArr = new Map();
 
+  app = null;
   constructor(app) {
     super(app);
-
+    this.app = app;
     this.startCheckHeartbeat();
   }
 
@@ -18,14 +19,12 @@ class SystemController extends ControllerBase {
     let waitT = process.env['HARBEAT'];
     let val = process.env['HARBEAT'] / 1000;
     while (true) {
-      // console.debug("check heartbeat", this.heartbeatArr.size);
       let offlineTimesemp = GameUtil.getTimestamp();
-
       for (const [uid, { timestemp, session }] of this.heartbeatArr) {
         if ((offlineTimesemp - timestemp) > val) {
           // console.debug("this guy offline", uid);
           this.channel.unbind(session);
-          session.close(1000, "NO_HEARTBEAT");
+          session.terminate();
           this.heartbeatArr.delete(uid);
           this.event.emit('offline', uid);
         } else {
@@ -38,9 +37,7 @@ class SystemController extends ControllerBase {
 
   handshake(session, packObj) {
     try {
-      // console.info(packObj);
-      let obj = this.decryptToken(packObj.token);
-      let uid = parseInt(obj.uid);
+      let uid = ConfirmEntryRule.check(packObj.token);
       session.uid = uid;
       if (this.heartbeatArr.has(uid)) {
         // console.debug("this guy reonline");
@@ -53,14 +50,6 @@ class SystemController extends ControllerBase {
     } catch (error) {
       return this.responseError(error);
     }
-  }
-
-  decryptToken(token) {
-    const key = Buffer.from(process.env['APP_KEY'], 'utf8');
-    const iv = Buffer.from(process.env['APP_KEY_IV'], 'utf8');
-    let obj = Auther.decrypt(token, key, iv);
-    obj = JSON.parse(obj);
-    return obj;
   }
 
   heartbeat(session, packObj) {
