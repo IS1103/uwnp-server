@@ -16,3 +16,17 @@ message testB_C {
 message testOn_P {
   string info = 1;
 }
+
+////
+
+message custom1 {
+  string info = 1;
+}
+
+message testC_S {
+  string info = 1;
+}
+
+message custom2 {
+  string info = 1;
+}

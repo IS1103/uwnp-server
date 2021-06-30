@@ -28,7 +28,7 @@ class EncodePack {
                 'errMsg': error.message,
                 'info': null
             };
-            let errPack = Codecs.encode(req,);
+            let errPack = Codecs.encode(req);
             log.debug(">>>> EncodePack error：" + JSON.stringify(req), JSON.stringify(res));
             session.send(errPack, { binary: true });
         }

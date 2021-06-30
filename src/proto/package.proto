@@ -6,6 +6,7 @@ message Package {
     string route = 2;
     int32 rqID = 3;
     bytes buff = 4;
+    string modelName = 5;
 }
 
 message Message {

@@ -26,10 +26,10 @@ class PackageHandler {
     let pack = PackageHandler.protoPackage.lookupType("package.Package");
     let packObj = pack.decode(buff);
     packObj = pack.toObject(packObj, { defaults: true });
-    // console.log("packObj", packObj);
+    // console.log("packObj:", packObj);
     let infoObj = null;
     if (packObj.route && packObj.buff != null) {
-      let info = PackageHandler.protoPackage.lookupType(packObj.route + "_C");
+      let info = PackageHandler.protoPackage.lookupType(packObj.modelName ? packObj.modelName : packObj.route + "_C");
       infoObj = info.decode(packObj.buff);
       infoObj = info.toObject(infoObj, { defaults: true });
     }
