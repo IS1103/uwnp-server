@@ -4,6 +4,7 @@
   "description": "輕量級連線 unity+websocket+nodejs+protobuf 框架",
   "main": "index.js",
   "scripts": {
+    "init": "bash shell/init.sh",
     "env": "bash shell/shell.sh",
     "dev": "nodemon src/app.js",
     "start": "node src/app.js"
@@ -26,6 +27,9 @@
     "koa-compose": "^4.1.0",
     "log4js": "^0.6.21",
     "protobufjs": "^6.10.2",
-    "ws": "^7.4.0"
+    "ws": "^7.4.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.4"
   }
 }
