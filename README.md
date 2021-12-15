@@ -3,6 +3,7 @@
 # 說明
 - [UWNP由來](#UWNP由來)
 - [服務端功能](#服務端功能)
+- [安裝](#安裝)
 - [環境設定](#環境設定)
 - [啟動 game server](#啟動gameserver)
 - [啟動修改自動重啟 game server](#啟動修改自動重啟gameserver)
@@ -26,6 +27,11 @@ UWNP 全名是 unity+websocket+nodejs+protobuf 輕量級單線程連線框架，
   * push 服務端主動發送訊息給客戶端
 * 同一個token無法重複登入，會把舊的連線關閉。
 * 客戶端從[這裡](https://github.com/IS1103/uwnp-client)點擊.
+# 安裝
+輸入以下
+```shell
+>npm run init
+```
 # 環境設定
 所有自定義的 config 檔案皆在 configThemes。自定義遊戲設定的方法如下：創建一個資料夾，該檔名就是<環境名稱>，若沒輸入就是取得 default 資料夾，完成就會秀出<環境名稱> setup!
 ```shell
